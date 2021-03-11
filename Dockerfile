@@ -16,4 +16,4 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
-CMD [ "sh", "-c", "node index.js" ]
+CMD [ "sh", "-c", "node src/server.js" ]
