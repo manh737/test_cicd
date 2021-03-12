@@ -1,35 +1,37 @@
+import './configs/config.js';
 import express from 'express';
 import cors from 'cors';
-import models from './models/index.js ';
+import models from './models/index.js';
+import router from './routes/router.js';
+
 
 const app = express();
-
+const port = process.env.PORT || 3000;
+//setup cors
 app.use(cors());
 
-const port = 8080
+//setup router
+app.use(router);
 
-app.get("/", (req, res) => {
-  res.json({
-    message: "Hello World!!! 1",
-  });
-});
 
-models.sequelize.sync({})
+//sync database
+models.sequelize
+.sync({})
 .then(() => {
   console.info('Database sync complete.')
 
   console.info('Starting server...')
 
   // Start web server
-  server.listen(port, (error) => {
+  app.listen(port, (error) => {
     if (error) {
-      console.error('ERROR - Unable to start server.')
+      console.error('Unable to start server.')
     } else {
       console.info(`Server is listening on port: ${port}`)
     }
   })
 })
 .catch(() => {
-  console.error('ERROR - Unable to sync database.')
-  console.error('ERROR - Server not started.')
+  console.error('Unable to sync database.')
+  console.error('Server not started.')
 })

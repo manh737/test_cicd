@@ -9,7 +9,7 @@ Object.keys(models).forEach(modelName => {
     }
 })
 
-models.sequelize = dbConnection;
+models.sequelize = dbConnection.connect();
 models.Sequelize = Sequelize;
 
 export default models;
